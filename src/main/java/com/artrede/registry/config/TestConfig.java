@@ -60,5 +60,12 @@ public class TestConfig implements CommandLineRunner {
 		
 		casementRepository.saveAll(Arrays.asList(case1, case2, case3));
 		
+		case1.getCategories().add(cat2);
+		case2.getCategories().add(cat1);
+		case2.getCategories().add(cat3);
+		case3.getCategories().add(cat3);
+		
+		casementRepository.saveAll(Arrays.asList(case1, case2, case3));
+		
 	}
 }

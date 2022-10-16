@@ -2,6 +2,7 @@ package com.artrede.registry.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 import com.artrede.registry.entities.enums.BudgetStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -99,4 +100,25 @@ public class Budget implements Serializable {
 		this.place = place;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(budgetStatus, contact, id, moment, person, place);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Budget other = (Budget) obj;
+		return Objects.equals(budgetStatus, other.budgetStatus) && Objects.equals(contact, other.contact)
+				&& Objects.equals(id, other.id) && Objects.equals(moment, other.moment)
+				&& Objects.equals(person, other.person) && Objects.equals(place, other.place);
+	}
+
+	
+	
 }

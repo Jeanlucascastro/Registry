@@ -2,14 +2,17 @@ package com.artrede.registry.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_casement")
@@ -25,7 +28,10 @@ public class Casement implements Serializable{
 	private Double width;
 	private Double length;
 	
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "tb_casement_category", 
+	joinColumns = @JoinColumn(name = "casement_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Casement() {
@@ -96,6 +102,30 @@ public class Casement implements Serializable{
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categories, description, height, id, length, name, width);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Casement other = (Casement) obj;
+		return Objects.equals(categories, other.categories) && Objects.equals(description, other.description)
+				&& Objects.equals(height, other.height) && Objects.equals(id, other.id)
+				&& Objects.equals(length, other.length) && Objects.equals(name, other.name)
+				&& Objects.equals(width, other.width);
 	}
 
 
