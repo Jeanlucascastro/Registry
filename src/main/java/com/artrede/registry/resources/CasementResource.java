@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.artrede.registry.entities.Suite;
-import com.artrede.registry.services.SuiteService;
+import com.artrede.registry.entities.Casement;
+import com.artrede.registry.services.CasementService;
 
 @RestController
-@RequestMapping(value = "/suites")
-public class SuiteResource {
+@RequestMapping(value = "/casements")
+public class CasementResource {
 	
 	@Autowired
-	private SuiteService service;
+	private CasementService service;
 
 	@GetMapping
-	public ResponseEntity<List<Suite>> findAll() {
+	public ResponseEntity<List<Casement>> findAll() {
 		
-		List<Suite> list = service.findAll();
+		List<Casement> list = service.findAll();
 		
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Suite> findById(@PathVariable Long id) {
+	public ResponseEntity<Casement> findById(@PathVariable Long id) {
 		
-		Suite obj = service.findById(id);
+		Casement obj = service.findById(id);
 		
 		return ResponseEntity.ok().body(obj);
 	}

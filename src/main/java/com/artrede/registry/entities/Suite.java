@@ -1,11 +1,16 @@
 package com.artrede.registry.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -22,7 +27,12 @@ public class Suite implements Serializable {
 	 private String name;
 	 private String address;
 	 private String phone;
+	 
+	@JsonIgnore
+	@OneToMany(mappedBy = "place")
+	private List<Budget> budgets = new ArrayList<>();
 	
+
 	
 	public Suite() {
 		
@@ -35,6 +45,7 @@ public class Suite implements Serializable {
 		this.address = address;
 		this.phone = phone;
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -67,6 +78,11 @@ public class Suite implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public List<Budget> getBudgets() {
+		return budgets;
+	}
+
 
 	
 }
