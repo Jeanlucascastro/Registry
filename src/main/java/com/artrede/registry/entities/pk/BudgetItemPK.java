@@ -21,7 +21,7 @@ public class BudgetItemPK implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "casement_id")
-	private Casement casemente;
+	private Casement casement;
 	
 	
 	public Budget getBudget() {
@@ -31,14 +31,14 @@ public class BudgetItemPK implements Serializable {
 		this.budget = budget;
 	}
 	public Casement getCasement() {
-		return casemente;
+		return casement;
 	}
-	public void setCasement(Casement casemente) {
-		this.casemente = casemente;
+	public void setCasement(Casement casement) {
+		this.casement = casement;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(budget, casemente);
+		return Objects.hash(budget, casement);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -49,7 +49,7 @@ public class BudgetItemPK implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BudgetItemPK other = (BudgetItemPK) obj;
-		return Objects.equals(budget, other.budget) && Objects.equals(casemente, other.casemente);
+		return Objects.equals(budget, other.budget) && Objects.equals(casement, other.casement);
 	}
 	
 	

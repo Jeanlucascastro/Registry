@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Configuration;
 //import org.springframework.context.annotation.Profile;
 
 import com.artrede.registry.entities.Budget;
+import com.artrede.registry.entities.BudgetItem;
 import com.artrede.registry.entities.Casement;
 import com.artrede.registry.entities.Category;
 import com.artrede.registry.entities.Suite;
 import com.artrede.registry.entities.enums.BudgetStatus;
+import com.artrede.registry.repositories.BudgetItemRepository;
 import com.artrede.registry.repositories.BudgetRepository;
 import com.artrede.registry.repositories.CasementRepository;
 import com.artrede.registry.repositories.CategoryRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CasementRepository casementRepository;
+	
+	@Autowired
+	private BudgetItemRepository budgetItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,5 +72,11 @@ public class TestConfig implements CommandLineRunner {
 		
 		casementRepository.saveAll(Arrays.asList(case1, case2, case3));
 		
+		BudgetItem oi1 = new BudgetItem(budget1, case1, 2, case1.getLength());
+		BudgetItem oi2 = new BudgetItem(budget1, case3, 1, case3.getLength());
+		BudgetItem oi3 = new BudgetItem(budget2, case3, 2, case3.getLength());
+		BudgetItem oi4 = new BudgetItem(budget2, case2, 2, case2.getLength()); 
+		
+		budgetItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 }

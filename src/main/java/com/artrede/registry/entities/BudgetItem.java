@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.artrede.registry.entities.pk.BudgetItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ public class BudgetItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private BudgetItemPK id;
+	private BudgetItemPK id = new BudgetItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -34,6 +35,7 @@ public class BudgetItem implements Serializable {
 		this.price = price;
 	}
 
+	@JsonIgnore
 	public Budget getBudget() {
 		return id.getBudget();
 	}

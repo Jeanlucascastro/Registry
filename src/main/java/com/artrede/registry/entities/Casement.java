@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,11 +36,13 @@ public class Casement implements Serializable{
 	joinColumns = @JoinColumn(name = "casement_id"),
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+
+	@OneToMany(mappedBy = "id.casement")
+	private Set<BudgetItem> items = new HashSet<>();
 	
 	public Casement() {
 		
 	}
-
 
 
 	public Casement(Long id, String name, String description, Double height, Double width, Double length) {
@@ -104,6 +109,14 @@ public class Casement implements Serializable{
 		return categories;
 	}
 
+	@JsonIgnore
+	public Set<Budget> getBudgets() {
+		Set<Budget> set = new HashSet<>();
+		for ( BudgetItem x : items) {
+			set.add(x.getBudget());
+		}
+		return set;
+	}
 
 
 	@Override
