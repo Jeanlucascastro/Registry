@@ -32,8 +32,6 @@ public class Suite implements Serializable {
 	@OneToMany(mappedBy = "place")
 	private List<Budget> budgets = new ArrayList<>();
 	
-
-	
 	public Suite() {
 		
 	}

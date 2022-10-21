@@ -12,6 +12,7 @@ import com.artrede.registry.entities.Budget;
 import com.artrede.registry.entities.BudgetItem;
 import com.artrede.registry.entities.Casement;
 import com.artrede.registry.entities.Category;
+import com.artrede.registry.entities.Payment;
 import com.artrede.registry.entities.Suite;
 import com.artrede.registry.entities.enums.BudgetStatus;
 import com.artrede.registry.repositories.BudgetItemRepository;
@@ -47,7 +48,7 @@ public class TestConfig implements CommandLineRunner {
 		
 		suiteRepository.saveAll(Arrays.asList(suite, suite2));
 		
-		Budget budget1 = new Budget(null, Instant.parse("2022-06-20T19:53:07Z"),BudgetStatus.PENDENT,  "maria", "33433783", suite);
+		Budget budget1 = new Budget(null, Instant.parse("2022-06-20T19:53:07Z"),BudgetStatus.DONE,  "maria", "33433783", suite);
 		Budget budget2 = new Budget(null, Instant.parse("2022-07-21T03:42:10Z"), BudgetStatus.PENDENT, "pedro", "9999999" ,suite2);
 		Budget budget3 = new Budget(null, Instant.parse("2022-07-22T15:21:22Z"), BudgetStatus.PENDENT, "joao", "888888", suite); 
 		
@@ -78,5 +79,11 @@ public class TestConfig implements CommandLineRunner {
 		BudgetItem oi4 = new BudgetItem(budget2, case2, 2, case2.getLength()); 
 		
 		budgetItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2022-06-20T21:53:07Z"), budget1 );
+		
+		budget1.setPayment(pay1);
+		budgetRepository.save(budget1);
+		
 	}
 }
