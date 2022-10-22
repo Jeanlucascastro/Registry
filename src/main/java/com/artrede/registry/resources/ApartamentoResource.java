@@ -36,7 +36,7 @@ public class ApartamentoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Apartamento> insert(@RequestBody Apartamento apto){
+	public ResponseEntity<Apartamento> insert(@RequestBody Apartamento apto){		
 		apto = apartamentoService.insert(apto);
 		return ResponseEntity.ok().body(apto);
 	}

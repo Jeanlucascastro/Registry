@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.artrede.registry.entities.Apartamento;
+import com.artrede.registry.entities.Categoria;
 import com.artrede.registry.entities.Janela;
 import com.artrede.registry.repositories.JanelaRepository;
 
@@ -20,6 +21,8 @@ public class JanelaService {
 	@Autowired
 	private ApartamentoService apartamentoService;
 	
+	@Autowired
+	private CategoriaService categoriaService;
 	
 
 	public List<Janela> findAll() {
@@ -33,7 +36,9 @@ public class JanelaService {
 	
 	public Janela insert(Long id, Janela janela) {
 		Apartamento apartamento = apartamentoService.findById(id);
+		Categoria categoria = categoriaService.findById(janela.getCategoria_id());
 		janela.setApartamento(apartamento);
+		janela.getCategorias().add(categoria);
 		return janelaRepository.save(janela);
 	}
 	

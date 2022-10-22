@@ -78,7 +78,6 @@ public class Apartamento implements Serializable {
 	public void setJanelas(List<Janela> janelas) {
 		this.janelas = janelas;
 	}
-	
-	
+
 	
 }
