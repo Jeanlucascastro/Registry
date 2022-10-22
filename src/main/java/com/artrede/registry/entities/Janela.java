@@ -130,7 +130,10 @@ public class Janela implements Serializable {
 	public void setCategoria_id(Long categoria_id) {
 		this.categoria_id = categoria_id;
 	}
-
+	
+	public Double getSubTotal() {
+		return height * width * length;
+	}
 
 	
 	

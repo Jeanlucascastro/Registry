@@ -78,6 +78,16 @@ public class Apartamento implements Serializable {
 	public void setJanelas(List<Janela> janelas) {
 		this.janelas = janelas;
 	}
+	
+	public Double getTotal() {
+		double soma = 0.0;
+		for(Janela x : janelas) {
+			soma += x.getSubTotal();
+		}
+		return soma;
+	}
+	
+	
 
 	
 }
