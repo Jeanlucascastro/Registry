@@ -1,12 +1,17 @@
 package com.artrede.registry.resources;
 
 import com.artrede.registry.entities.Usuario;
+import com.artrede.registry.repositories.UsuarioRepository;
 import com.artrede.registry.services.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/usuario")
@@ -14,6 +19,13 @@ public class UsuarioResource {
 
     @Autowired
     private UsuarioService service;
+    private UsuarioRepository repository;
+    private final PasswordEncoder encoder;
+
+    public UsuarioResource(UsuarioService service, PasswordEncoder encoder) {
+        this.service = service;
+        this.encoder = encoder;
+    }
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
@@ -29,6 +41,7 @@ public class UsuarioResource {
 
     @PostMapping
     public ResponseEntity<Usuario> insert(@RequestBody Usuario usr) {
+        usr.setPassword(encoder.encode(usr.getPassword()));
         usr = service.insert(usr);
         return ResponseEntity.ok().body(usr);
     }
@@ -43,5 +56,22 @@ public class UsuarioResource {
     public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usr) {
         usr = service.update(id, usr);
         return ResponseEntity.ok().body(usr);
+    }
+
+    @GetMapping("/validarSenha")
+    public ResponseEntity<Boolean> validarSenha(@RequestParam String userName, @RequestParam String password) {
+
+    Optional<Usuario> opUsuario = repository.findByUserName(userName);
+    if (opUsuario.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+    }
+
+        boolean valid = false;
+
+        Usuario usuario = opUsuario.get();
+        valid = encoder.matches(password, usuario.getPassword());
+
+        HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+        return ResponseEntity.status(status).body(valid);
     }
 }
