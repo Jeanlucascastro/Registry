@@ -4,7 +4,6 @@ import com.artrede.registry.entities.Usuario;
 import com.artrede.registry.repositories.UsuarioRepository;
 import com.artrede.registry.services.UsuarioService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +18,9 @@ public class UsuarioResource {
 
     @Autowired
     private UsuarioService service;
+    @Autowired
     private UsuarioRepository repository;
+    @Autowired
     private final PasswordEncoder encoder;
 
     public UsuarioResource(UsuarioService service, PasswordEncoder encoder) {
